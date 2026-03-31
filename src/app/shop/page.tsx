@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart/useCart";
-import type { ProductVariant, ProductSize } from "@/types";
+import type { DisplayVariant, DisplaySize } from "@/types";
 
 // Product data - 4 signature cold brew variants
-const PRODUCT_VARIANTS: ProductVariant[] = [
+const PRODUCT_VARIANTS: DisplayVariant[] = [
   {
     id: "origin",
     type: "coldbrew",
@@ -44,7 +44,7 @@ const PRODUCT_VARIANTS: ProductVariant[] = [
 ];
 
 // Product sizes
-const PRODUCT_SIZES: ProductSize[] = [
+const PRODUCT_SIZES: DisplaySize[] = [
   {
     id: "cup",
     type: "cup",
@@ -99,10 +99,10 @@ const itemVariants = {
 
 // Product card component
 interface ProductCardProps {
-  variant: ProductVariant;
-  size: ProductSize;
-  onSizeChange: (variantId: string, size: ProductSize) => void;
-  selectedSize: ProductSize;
+  variant: DisplayVariant;
+  size: DisplaySize;
+  onSizeChange: (variantId: string, size: DisplaySize) => void;
+  selectedSize: DisplaySize;
 }
 
 function ProductCard({
@@ -215,11 +215,11 @@ function ProductCard({
 export default function ShopPage() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   const [selectedSizes, setSelectedSizes] = useState<
-    Record<string, ProductSize>
+    Record<string, DisplaySize>
   >({});
 
   // Initialize sizes for all variants
-  const getSelectedSize = (variantId: string): ProductSize => {
+  const getSelectedSize = (variantId: string): DisplaySize => {
     if (!selectedSizes[variantId]) {
       // Default to cup
       setSelectedSizes((prev) => ({
@@ -232,7 +232,7 @@ export default function ShopPage() {
   };
 
   const handleSizeChange = useCallback(
-    (variantId: string, size: ProductSize) => {
+    (variantId: string, size: DisplaySize) => {
       setSelectedSizes((prev) => ({
         ...prev,
         [variantId]: size,

@@ -10,11 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/components/cart/CartProvider";
 import { cn } from "@/lib/utils";
-import type { ProductVariant, ProductSize } from "@/types";
+import type { DisplayVariant, DisplaySize } from "@/types";
 import homeBG from "../../public/hero-bg.webp";
 
 // Product data for the 4 signature Cold Brew variants
-const coldBrewVariants: ProductVariant[] = [
+const coldBrewVariants: DisplayVariant[] = [
   {
     id: "origin",
     type: "coldbrew",
@@ -45,7 +45,7 @@ const coldBrewVariants: ProductVariant[] = [
   },
 ];
 
-const productSizes: ProductSize[] = [
+const productSizes: DisplaySize[] = [
   { id: "cup", type: "cup", name: "Cup", volume: "250ml", priceModifier: 0 },
   {
     id: "bottle",
@@ -107,10 +107,10 @@ function ProductCard({
   variant,
   index,
 }: {
-  variant: ProductVariant;
+  variant: DisplayVariant;
   index: number;
 }) {
-  const [selectedSize, setSelectedSize] = useState<ProductSize>(
+  const [selectedSize, setSelectedSize] = useState<DisplaySize>(
     productSizes[0],
   );
   const { addToCart, setIsOpen } = useCart();

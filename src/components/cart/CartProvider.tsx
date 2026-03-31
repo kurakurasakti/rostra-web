@@ -8,13 +8,17 @@ import React, {
   useCallback,
   type ReactNode,
 } from "react";
-import type { CartItem, ProductVariant, ProductSize } from "@/types";
+import type {
+  CartItem,
+  DisplayVariant,
+  DisplaySize,
+} from "@/types";
 
 interface CartItemInput {
   id: string;
   productId: string;
-  variant: ProductVariant;
-  size: ProductSize;
+  variant: DisplayVariant;
+  size: DisplaySize;
   quantity: number;
 }
 
@@ -51,6 +55,8 @@ function createCartItem(input: CartItemInput): CartItem {
   return {
     id: input.id || generateId(),
     productId: input.productId,
+    variantId: input.variant.id,
+    sizeId: input.size.id,
     variant: input.variant,
     size: input.size,
     quantity: input.quantity,
@@ -95,8 +101,8 @@ export function CartProvider({ children }: { children?: ReactNode }) {
       const existingIndex = currentItems.findIndex(
         (item: CartItem) =>
           item.productId === input.productId &&
-          item.variant.id === input.variant.id &&
-          item.size.id === input.size.id,
+          item.variant?.id === input.variant.id &&
+          item.size?.id === input.size.id,
       );
 
       if (existingIndex >= 0) {
@@ -105,7 +111,7 @@ export function CartProvider({ children }: { children?: ReactNode }) {
         const existingItem = updatedItems[existingIndex];
         const newQuantity = existingItem.quantity + input.quantity;
         const unitPrice =
-          existingItem.variant.price + existingItem.size.priceModifier;
+          existingItem.variant!.price + existingItem.size!.priceModifier;
 
         updatedItems[existingIndex] = {
           ...existingItem,
@@ -139,7 +145,7 @@ export function CartProvider({ children }: { children?: ReactNode }) {
     setOptimisticItems((currentItems: CartItem[]) =>
       currentItems.map((item: CartItem) => {
         if (item.id === id) {
-          const unitPrice = item.variant.price + item.size.priceModifier;
+          const unitPrice = item.variant!.price + item.size!.priceModifier;
           return {
             ...item,
             quantity,

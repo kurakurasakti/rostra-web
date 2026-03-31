@@ -77,7 +77,7 @@ export function CartSheet() {
                     {/* Product Image Placeholder */}
                     <div className="w-20 h-20 bg-accent-dark rounded-md flex items-center justify-center flex-shrink-0">
                       <span className="text-gold text-xs font-medium">
-                        {item.variant.type.toUpperCase()}
+                        {item.variant?.type.toUpperCase()}
                       </span>
                     </div>
 
@@ -86,10 +86,10 @@ export function CartSheet() {
                       <div className="flex justify-between items-start gap-2">
                         <div>
                           <h4 className="text-off-white font-body text-sm font-medium truncate">
-                            {item.variant.name}
+                            {item.variant?.name}
                           </h4>
                           <p className="text-muted text-xs mt-1">
-                            {item.size.name} • {item.size.volume}
+                            {item.size?.name} • {item.size?.volume}
                           </p>
                         </div>
                         <button

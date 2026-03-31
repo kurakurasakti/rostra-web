@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/navigation/Header";
 import { Footer } from "@/components/sections/Footer";
 import { CartProvider } from "@/components/cart/CartProvider";
+import { Providers } from "@/lib/providers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,12 +33,18 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${playfair.variable} h-full antialiased dark`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-primary-dark text-off-white">
-        <CartProvider />
-        <Header />
-        <main className="flex-1 pt-20">{children}</main>
-        <Footer />
+      <body
+        className="min-h-full flex flex-col bg-primary-dark text-off-white"
+        suppressHydrationWarning
+      >
+        <Providers>
+          <CartProvider />
+          <Header />
+          <main className="flex-1 pt-20">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
